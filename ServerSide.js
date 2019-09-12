@@ -10,13 +10,14 @@ var fs = require('fs'); // File System Module
 var adr = 'http://localhost:8080/default.htm?year=2019&month=september';
 var q = url.parse(adr, true);
 
+var uc = require('upper-case'); //npm install upper-case
 
 //create a server object
 http.createServer(function(req, res){
 	fs.readFile('demoFile.html', function(err, data){ // read files -> html files
 	
 		res.writeHead(200, {'Content-Type': 'text/html'});// return a response to the client , 200 -> all is OK, 2argument-> response headers
-		res.write("A data e o horario hoje: " + dt.myDateTime()); // module function
+		res.write(uc("A data e o horario hoje: " + dt.myDateTime())); // module function
 		
 		res.write(req.url);
 		var q = url.parse(req.url, true).query;
