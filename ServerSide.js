@@ -12,6 +12,21 @@ var q = url.parse(adr, true);
 
 var uc = require('upper-case'); //npm install upper-case
 
+var events = require('events'); // built-in module -> you can fire, create, listen for your own events
+var eventEmitter = new events.EventEmitter();
+
+// create an event handler
+var myEventHandler = function(){
+	console.log('Lets do it!');
+}
+
+// assign the event handler to an event
+eventEmitter.on('do', myEventHandler);
+
+//fire the event -> do
+eventEmitter.emit('do');
+
+
 //create a server object
 http.createServer(function(req, res){
 	fs.readFile('demoFile.html', function(err, data){ // read files -> html files
