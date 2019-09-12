@@ -1,11 +1,10 @@
 // by Jadson Marliere de Oliveira
 // exec> node ServerSide.js
-// 
 
 var http = require('http'); // name of the module/library http
 var dt = require('./myModule'); // include a module file
 var url = require('url'); // include a URL module
-var fs = require('fs'); // File System Module
+var fs = require('fs'); // File System Module, upload files
 
 var adr = 'http://localhost:8080/default.htm?year=2019&month=september';
 var q = url.parse(adr, true);
@@ -21,10 +20,8 @@ var eventEmitter = new events.EventEmitter();
 var myEventHandler = function(){
 	console.log('Lets do it!');
 }
-
 // assign the event handler to an event
 eventEmitter.on('do', myEventHandler);
-
 //fire the event -> do
 eventEmitter.emit('do');
 
