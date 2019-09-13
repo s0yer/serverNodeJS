@@ -37,6 +37,8 @@ http.createServer(function(req, res){
 	var q = url.parse(req.url, true);
 	var filename = "."  + q.pathname;
 
+
+	
 	fs.readFile('demoFile.html', function(err, data){ // read files -> html files
 		if(err){
 			res.writeHead(404, {'Content-Type': 'text/html'});
@@ -46,8 +48,25 @@ http.createServer(function(req, res){
 		res.writeHead(200, {'Content-Type': 'text/html'});// return a response to the client , 200 -> all is OK, 2argument-> response headers
 		res.write(data);
 		res.write(uc("A data e o horario hoje: " + dt.myDateTime())); // module function
-		res.end('Teste Server Node JS '); //end the response
+		
+		if(req.url == '/fileupload'){
+			var form = new formidable.IncomingForm();
+			form.parse(req, function(err, fields, files){
+				res.write('File uploaded');
+				res.end();
+			});
+			
+		}else{
+			res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
+			res.write('<input type="file" name="fileupload"><br>');
+			res.write('<input type="submit">');
+			res.write('</form>');
+	
+		return res.end('Teste Server Node JS '); //end the response
+		}
+		
 		
 	});
+	
 }).listen(8080); // listen port 8080
 
